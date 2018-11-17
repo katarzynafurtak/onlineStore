@@ -1,25 +1,17 @@
-package com.capgemini.onlineStore.persistence.entity;
+package com.capgemini.onlineStore.persistence.to;
 
 import com.capgemini.onlineStore.persistence.datatype.Status;
+import com.capgemini.onlineStore.persistence.entity.CustomerEntity;
 
-import javax.persistence.*;
+public class TransactionTO extends AbstractTO {
 
-@Entity
-@Table(name = "TRANSACTION")
-public class TransactionEntity extends AbstractEntity {
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private Status status;
-
-    @ManyToOne
-    @JoinColumn(name = "customer")
     private CustomerEntity customer;
 
-    public TransactionEntity() {
+    public TransactionTO() {
     }
 
-    public TransactionEntity(Status status, CustomerEntity customer) {
+    public TransactionTO(Status status, CustomerEntity customer) {
         this.status = status;
         this.customer = customer;
     }

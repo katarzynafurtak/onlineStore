@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "ORDER_PRODUCT")
-public class OrderProduct extends AbstractEntity {
+public class OrderProductEntity extends AbstractEntity {
 
     @Column(nullable = false, length = 5)
     private Integer amount;
@@ -14,16 +14,16 @@ public class OrderProduct extends AbstractEntity {
     private ProductEntity product;
 
     @ManyToOne
-    @JoinColumn(name = "order_product_id")
-    private OrderProduct orderProduct;
+    @JoinColumn(name = "transaction_id")
+    private TransactionEntity transaction;
 
-    public OrderProduct() {
+    public OrderProductEntity() {
     }
 
-    public OrderProduct(Integer amount, ProductEntity product, OrderProduct orderProduct) {
+    public OrderProductEntity(Integer amount, ProductEntity product, TransactionEntity transaction) {
         this.amount = amount;
         this.product = product;
-        this.orderProduct = orderProduct;
+        this.transaction = transaction;
     }
 
     public Integer getAmount() {
@@ -42,11 +42,11 @@ public class OrderProduct extends AbstractEntity {
         this.product = product;
     }
 
-    public OrderProduct getOrderProduct() {
-        return orderProduct;
+    public TransactionEntity getTransaction() {
+        return transaction;
     }
 
-    public void setOrderProduct(OrderProduct orderProduct) {
-        this.orderProduct = orderProduct;
+    public void setTransaction(TransactionEntity transaction) {
+        this.transaction = transaction;
     }
 }

@@ -26,11 +26,6 @@ public class ProductTest {
     @PersistenceContext
     private EntityManager manager;
 
-//    @BeforeClass
-//    public void setUpTests() {
-//
-//    }
-
     @Test
     public void shouldFindProductByName() {
 
@@ -49,8 +44,7 @@ public class ProductTest {
 
         //then
         Assertions.assertThat(result).hasSize(1);
-      //  Assertions.assertThat(result.stream().map(r -> r.getName()).distinct().collect(Collectors.toList())).hasSize(1);
-     //   Assertions.assertThat(result.stream().map(r -> r.getName()).findAny().get()).isEqualTo("cytryna");
+        Assertions.assertThat(result.stream().map(r -> r.getName()).findAny().get()).isEqualTo("cytryna");
 
 
     }

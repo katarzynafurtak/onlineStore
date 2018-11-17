@@ -1,44 +1,24 @@
-package com.capgemini.onlineStore.persistence.entity;
+package com.capgemini.onlineStore.persistence.to;
 
-import javax.validation.constraints.NotNull;
+import com.capgemini.onlineStore.persistence.entity.ContactData;
+import com.capgemini.onlineStore.persistence.entity.TransactionEntity;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "CUSTOMER")
-public class CustomerEntity extends AbstractEntity {
+public class CustomerTO extends AbstractTO {
 
-    @Column(nullable = false, length = 50)
     private String firstName;
-
-    @Column(nullable = false, length = 50)
     private String lastName;
-
-    @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
-
-    @Embedded
-    @AttributeOverrides(value = {
-            @AttributeOverride(name = "city", column = @Column(name = "city")),
-            @AttributeOverride(name = "street", column = @Column(name = "street")),
-            @AttributeOverride(name = "numberOfHouse", column = @Column(name = "number_of_house")),
-            @AttributeOverride(name = "numberOfFlat", column = @Column(name = "number_of_flat")),
-            @AttributeOverride(name = "postcode", column = @Column(name = "postcode", length = 6)),
-            @AttributeOverride(name = "phoneNumber", column = @Column(name = "phone_number")),
-            @AttributeOverride(name = "email", column = @Column(name = "email"))
-    })
     private ContactData contactData;
-
-    @OneToMany(mappedBy = "customer")
     private Set<TransactionEntity> transactions = new HashSet<>();
 
-    public CustomerEntity() {
+    public CustomerTO() {
     }
 
-    public CustomerEntity(String firstName, String lastName, LocalDate dateOfBirth, ContactData contactData, Set<TransactionEntity> transactions) {
+    public CustomerTO(String firstName, String lastName, LocalDate dateOfBirth, ContactData contactData, Set<TransactionEntity> transactions) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -85,6 +65,4 @@ public class CustomerEntity extends AbstractEntity {
     public void setTransactions(Set<TransactionEntity> transactions) {
         this.transactions = transactions;
     }
-
-
 }
