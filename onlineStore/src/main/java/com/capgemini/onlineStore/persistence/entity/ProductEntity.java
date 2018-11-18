@@ -3,7 +3,6 @@ package com.capgemini.onlineStore.persistence.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 @NamedQueries({
         @NamedQuery(name = "Product.findAll", query = "SELECT c FROM ProductEntity c"),
         @NamedQuery(name = "Product.findByName", query = "SELECT c FROM ProductEntity c WHERE c.name = :name "),
@@ -14,16 +13,16 @@ import java.math.BigDecimal;
 @Table(name = "PRODUCT")
 public class ProductEntity extends AbstractEntity {
 
-    @Column(nullable = false, length = 50)
+    @Column
     private String name;
 
-    @Column(nullable = false, length = 10)
+    @Column
     private BigDecimal marge;
 
-    @Column(nullable = false, length = 10)
+    @Column
     private BigDecimal price;
 
-    @Column(nullable = false, length = 10)
+    @Column
     private BigDecimal weight;
 
     public ProductEntity() {

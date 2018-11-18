@@ -1,5 +1,8 @@
-package com.capgemini.onlineStore.persistence.entity;
+package com.capgemini.onlineStore.persistence.embedded;
 
+import org.hibernate.validator.constraints.Email;
+
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.Embeddable;
@@ -7,23 +10,25 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ContactData {
 
-    @javax.validation.constraints.NotNull
+    @Column(length = 50, nullable = false)
     private String city;
 
+    @Column(length = 50)
     private String street;
 
-    @NotNull
+    @Column(length = 5, nullable = false)
     private String numberOfHouse;
 
+    @Column(length = 5)
     private Integer numberOfFlat;
 
-    @NotNull
+    @Column(length = 6, nullable = false)
     private String postcode;
 
-    @NotNull
+    @Column(length = 50, nullable = false)
     private String email;
 
-    @NotNull
+    @Column(length = 9, nullable = false)
     private String phoneNumber;
 
     public ContactData() {

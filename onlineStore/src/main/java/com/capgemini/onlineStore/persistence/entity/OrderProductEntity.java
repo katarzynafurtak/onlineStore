@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "ORDER_PRODUCT")
 public class OrderProductEntity extends AbstractEntity {
 
-    @Column(nullable = false, length = 5)
+    @Column
     private Integer amount;
 
     @ManyToOne

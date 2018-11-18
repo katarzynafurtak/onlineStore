@@ -1,6 +1,6 @@
 package com.capgemini.onlineStore.persistence.entity;
 
-import javax.validation.constraints.NotNull;
+import com.capgemini.onlineStore.persistence.embedded.ContactData;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,25 +11,16 @@ import java.util.Set;
 @Table(name = "CUSTOMER")
 public class CustomerEntity extends AbstractEntity {
 
-    @Column(nullable = false, length = 50)
+    @Column
     private String firstName;
 
-    @Column(nullable = false, length = 50)
+    @Column
     private String lastName;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column
     private LocalDate dateOfBirth;
 
     @Embedded
-    @AttributeOverrides(value = {
-            @AttributeOverride(name = "city", column = @Column(name = "city")),
-            @AttributeOverride(name = "street", column = @Column(name = "street")),
-            @AttributeOverride(name = "numberOfHouse", column = @Column(name = "number_of_house")),
-            @AttributeOverride(name = "numberOfFlat", column = @Column(name = "number_of_flat")),
-            @AttributeOverride(name = "postcode", column = @Column(name = "postcode", length = 6)),
-            @AttributeOverride(name = "phoneNumber", column = @Column(name = "phone_number")),
-            @AttributeOverride(name = "email", column = @Column(name = "email"))
-    })
     private ContactData contactData;
 
     @OneToMany(mappedBy = "customer")

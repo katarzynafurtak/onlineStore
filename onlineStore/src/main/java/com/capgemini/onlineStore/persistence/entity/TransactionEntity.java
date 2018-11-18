@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "TRANSACTION")
 public class TransactionEntity extends AbstractEntity {
 
-    @Column(nullable = false)
+    @Column
     @Enumerated(EnumType.STRING)
     private Status status;
 

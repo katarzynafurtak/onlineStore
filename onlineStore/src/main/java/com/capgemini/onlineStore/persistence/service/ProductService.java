@@ -1,4 +1,4 @@
 package com.capgemini.onlineStore.persistence.service;
 
-public class CustomerService {
+public interface ProductService {
 }
