@@ -1,9 +1,6 @@
 package com.capgemini.onlineStore.persistence.embedded;
 
-import org.hibernate.validator.constraints.Email;
-
 import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
 
 import javax.persistence.Embeddable;
 

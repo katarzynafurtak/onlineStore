@@ -1,6 +1,7 @@
-package com.capgemini.onlineStore.persistence.to;
+package com.capgemini.onlineStore.to;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import com.capgemini.onlineStore.to.ProductTO;
+
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 

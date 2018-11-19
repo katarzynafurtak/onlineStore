@@ -1,6 +1,6 @@
-package com.capgemini.onlineStore.persistence.service.impl;
+package com.capgemini.onlineStore.service.impl;
 
-import com.capgemini.onlineStore.persistence.service.ProductService;
+import com.capgemini.onlineStore.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

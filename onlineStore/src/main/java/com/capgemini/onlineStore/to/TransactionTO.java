@@ -1,6 +1,7 @@
-package com.capgemini.onlineStore.persistence.to;
+package com.capgemini.onlineStore.to;
 
 import com.capgemini.onlineStore.persistence.datatype.Status;
+import com.capgemini.onlineStore.to.CustomerTO;
 
 import javax.validation.constraints.NotNull;
 import java.util.Objects;

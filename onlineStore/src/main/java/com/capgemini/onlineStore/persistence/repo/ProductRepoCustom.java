@@ -8,4 +8,7 @@ public interface ProductRepoCustom {
 
     List<ProductEntity> findByName(String name);
 
+    List<ProductEntity> findAll();
+
+    //ProductEntity update(ProductEntity productEntity);
 }

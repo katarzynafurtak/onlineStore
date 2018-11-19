@@ -2,7 +2,7 @@ package com.capgemini.onlineStore.persistence.mapper;
 
 import com.capgemini.onlineStore.persistence.entity.CustomerEntity;
 import com.capgemini.onlineStore.persistence.mapper.common.CycleAvoidingMappingContext;
-import com.capgemini.onlineStore.persistence.to.CustomerTO;
+import com.capgemini.onlineStore.to.CustomerTO;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 

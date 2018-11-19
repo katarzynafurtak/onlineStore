@@ -1,4 +1,4 @@
-package com.capgemini.onlineStore.persistence.to;
+package com.capgemini.onlineStore.to;
 
 import java.time.LocalDateTime;
 

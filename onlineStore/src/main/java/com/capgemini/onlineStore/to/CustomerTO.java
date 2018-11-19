@@ -1,12 +1,9 @@
-package com.capgemini.onlineStore.persistence.to;
+package com.capgemini.onlineStore.to;
 
 import com.capgemini.onlineStore.persistence.embedded.ContactData;
-import com.capgemini.onlineStore.persistence.to.TransactionTO;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 

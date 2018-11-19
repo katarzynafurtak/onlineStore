@@ -1,4 +1,4 @@
-package com.capgemini.onlineStore.persistence.to;
+package com.capgemini.onlineStore.to;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

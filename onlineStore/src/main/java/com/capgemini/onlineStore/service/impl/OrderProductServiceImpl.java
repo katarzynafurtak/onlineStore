@@ -1,12 +1,12 @@
-package com.capgemini.onlineStore.persistence.service.impl;
+package com.capgemini.onlineStore.service.impl;
 
 import com.capgemini.onlineStore.persistence.entity.OrderProductEntity;
 import com.capgemini.onlineStore.persistence.mapper.OrderProductMapper;
 import com.capgemini.onlineStore.persistence.mapper.common.CycleAvoidingMappingContext;
 import com.capgemini.onlineStore.persistence.repo.OrderProductRepo;
 import com.capgemini.onlineStore.persistence.repo.TransactionRepo;
-import com.capgemini.onlineStore.persistence.service.OrderProductService;
-import com.capgemini.onlineStore.persistence.to.OrderProductTO;
+import com.capgemini.onlineStore.service.OrderProductService;
+import com.capgemini.onlineStore.to.OrderProductTO;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +25,10 @@ public class OrderProductServiceImpl implements OrderProductService {
     @Autowired
     private OrderProductMapper orderProductMapper;
 
-    @Override
-    public double calculateTotalCost(Long transactionId) {
-        //TransactionEntity transactionEntity = transactionRepo.findOne(transactionId);
-        return orderProductRepo.calculateTotalCostOfTransaction(transactionId);
-    }
+//    @Override
+//    public double calculateTotalCost(Long transactionId) {
+//        return orderProductRepo.calculateTotalCostOfTransaction(transactionId);
+//    }
 
 //    @Override
 //    public List<String> findSpecificAmountOfBestSellers(int amountOfBestSellers) {

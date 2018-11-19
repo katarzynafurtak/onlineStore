@@ -5,9 +5,9 @@ import java.util.List;
 public interface OrderProductRepoCustom {
 
 
-    double calculateTotalCostOfTransaction(Long id);
+    // double calculateTotalCostOfTransaction(Long id);
 
-    List<String> findSpecificAmountOfBestSellers(int amountOfBestSellers);
+   // List<String> findSpecificAmountOfBestSellers(int amountOfBestSellers);
 
 
 }

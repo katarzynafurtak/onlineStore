@@ -2,6 +2,10 @@ package com.capgemini.onlineStore.persistence.entity;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(name = "Order_product.calculateTotalCost", query = "SELECT c FROM ProductEntity c"),
+
+})
 @Entity
 @Table(name = "ORDER_PRODUCT")
 public class OrderProductEntity extends AbstractEntity {
