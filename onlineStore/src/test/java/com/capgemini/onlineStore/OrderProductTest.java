@@ -85,58 +85,58 @@ public class OrderProductTest {
 
 
 
-    @Test
-    public void shouldCalculateTotalCostOPurchase() {
-
-        //given
-        PurchaseTO pur1 = new PurchaseTO.PurchaseTOBuilder()
-                .withStatus(Status.COMPLETED)
-                .build();
-
-        ProductTO product1 = new ProductTO.ProductTOBuilder()
-                .withName("Apple MacBook Pro13")
-                .withPrice(BigDecimal.valueOf(9000))
-                .withMarge(BigDecimal.valueOf(50))
-                .withWeight(BigDecimal.valueOf(2))
-                .build();
-
-
-        ProductTO product2= new ProductTO.ProductTOBuilder()
-                .withName("Telewizor LG")
-                .withPrice(BigDecimal.valueOf(3000))
-                .withMarge(BigDecimal.valueOf(50))
-                .withWeight(BigDecimal.valueOf(18))
-                .build();
-
-
-        OrderProductTO order1 = new OrderProductTO.OrderProductTOBuilder()
-                .withAmount(1)
-                .withProduct(product1)
-                .withPurchase(pur1)
-                .build();
-        orderProductService.saveOrder(order1);
-
-        OrderProductTO order2 = new OrderProductTO.OrderProductTOBuilder()
-                .withAmount(2)
-                .withProduct(product2)
-                .withPurchase(pur1)
-                .build();
-        orderProductService.saveOrder(order2);
-
-
-        List<OrderProductTO> found = orderProductService.findAllOrders();
-        double expectedResult = 0.00;
-
-        for (OrderProductTO order : orderProductService.findAllOrders()) {
-            if (order.getPurchase().getId() == pur1.getId()) {
-                expectedResult += (order.getAmount()* order.getProduct().getPrice().doubleValue())/(1-(0.01*order.getProduct().getMarge().doubleValue()));
-            }
-        }
+//    @Test
+//    public void shouldCalculateTotalCostOPurchase() {
+//
+//        //given
+//        PurchaseTO pur1 = new PurchaseTO.PurchaseTOBuilder()
+//                .withStatus(Status.COMPLETED)
+//                .build();
+//
+//        ProductTO product1 = new ProductTO.ProductTOBuilder()
+//                .withName("Apple MacBook Pro13")
+//                .withPrice(BigDecimal.valueOf(9000))
+//                .withMarge(BigDecimal.valueOf(50))
+//                .withWeight(BigDecimal.valueOf(2))
+//                .build();
+//
+//
+//        ProductTO product2= new ProductTO.ProductTOBuilder()
+//                .withName("Telewizor LG")
+//                .withPrice(BigDecimal.valueOf(3000))
+//                .withMarge(BigDecimal.valueOf(50))
+//                .withWeight(BigDecimal.valueOf(18))
+//                .build();
+//
+//
+//        OrderProductTO order1 = new OrderProductTO.OrderProductTOBuilder()
+//                .withAmount(1)
+//                .withProduct(product1)
+//                .withPurchase(pur1)
+//                .build();
+//        orderProductService.saveOrder(order1);
+//
+//        OrderProductTO order2 = new OrderProductTO.OrderProductTOBuilder()
+//                .withAmount(2)
+//                .withProduct(product2)
+//                .withPurchase(pur1)
+//                .build();
+//        orderProductService.saveOrder(order2);
+//
+//
+//        List<OrderProductTO> found = orderProductService.findAllOrders();
+//        double expectedResult = 0.00;
+//
+//        for (OrderProductTO order : orderProductService.findAllOrders()) {
+//            if (order.getPurchase().getId() == pur1.getId()) {
+//                expectedResult += (order.getAmount()* order.getProduct().getPrice().doubleValue())/(1-(0.01*order.getProduct().getMarge().doubleValue()));
+//            }
+//        }
 //
 //        //when
 //        double totalCost = orderProductService.calculateTotalCost(pur1.getId());
 //
 //        //then
 //        Assertions.assertThat(expectedResult).isEqualTo(totalCost);
-    }
+//    }
 }

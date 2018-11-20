@@ -17,16 +17,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class ValidatorImpl implements Validator {
 
-    private PurchaseRepo purchaseRepo;
     private PurchaseService purchaseService;
-
-    @Override
-    public void validateCustomerAndPurchase(PurchaseEntity purchaseEntity) throws InvalidPurchaseException {
-        if (purchaseRepo.getAmountOfCompletedPurchasesByCustomer(purchaseEntity.getCustomer()) < 3
-                && purchaseService.calculateCostOfOnePurchase(purchaseEntity).compareTo(BigDecimal.valueOf(5000)) > 0) {
-            throw new InvalidPurchaseException("Customer that has less than three completed purchases cannot order over 5000 zł.");
-        }
-    }
 
     @Override
     public void validateAmountOfPurchasedProducts(PurchaseEntity purchaseEntity) {

@@ -10,17 +10,15 @@ public class PurchaseTO extends AbstractTO {
 
     @NotNull
     private Status status;
-    @NotNull
-    private CustomerTO customer;
+
     @NotNull
     private Set<OrderProductTO> orders;
 
     public PurchaseTO() {
     }
 
-    public PurchaseTO(Status status, CustomerTO customer, Set<OrderProductTO> orders) {
+    public PurchaseTO(Status status, Set<OrderProductTO> orders) {
         this.status = status;
-        this.customer = customer;
         this.orders = orders;
     }
 
@@ -30,14 +28,6 @@ public class PurchaseTO extends AbstractTO {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public CustomerTO getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerTO customer) {
-        this.customer = customer;
     }
 
     public Set<OrderProductTO> getOrders() {
@@ -50,25 +40,18 @@ public class PurchaseTO extends AbstractTO {
 
     public static class PurchaseTOBuilder {
         private Status status;
-        private CustomerTO customer;
         private Set<OrderProductTO> orders;
 
         public PurchaseTOBuilder() {
         }
 
-        public PurchaseTOBuilder(Status status, CustomerTO customer, Set<OrderProductTO> orders) {
+        public PurchaseTOBuilder(Status status, Set<OrderProductTO> orders) {
             this.status = status;
-            this.customer = customer;
             this.orders = orders;
         }
 
         public PurchaseTOBuilder withStatus(Status status) {
             this.status = status;
-            return this;
-        }
-
-        public PurchaseTOBuilder withCustomer(CustomerTO customer) {
-            this.customer = customer;
             return this;
         }
 
@@ -78,7 +61,7 @@ public class PurchaseTO extends AbstractTO {
         }
 
         public PurchaseTO build() {
-            return new PurchaseTO(status, customer, orders);
+            return new PurchaseTO(status, orders);
         }
     }
 
@@ -88,20 +71,18 @@ public class PurchaseTO extends AbstractTO {
         if (o == null || getClass() != o.getClass()) return false;
         PurchaseTO that = (PurchaseTO) o;
         return status == that.status &&
-                Objects.equals(customer, that.customer) &&
                 Objects.equals(orders, that.orders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(status, customer, orders);
+        return Objects.hash(status, orders);
     }
 
     @Override
     public String toString() {
         return "PurchaseTO{" +
                 "status=" + status +
-                ", customer=" + customer +
                 ", orders=" + orders +
                 '}';
     }

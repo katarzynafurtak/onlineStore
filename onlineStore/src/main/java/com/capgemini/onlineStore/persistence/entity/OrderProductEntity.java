@@ -13,17 +13,12 @@ public class OrderProductEntity extends AbstractEntity {
     @JoinColumn(name = "product")
     private ProductEntity product;
 
-    @ManyToOne
-    @JoinColumn(name = "purchase")
-    private PurchaseEntity purchase;
-
     public OrderProductEntity() {
     }
 
-    public OrderProductEntity(Integer amount, ProductEntity product, PurchaseEntity purchase) {
+    public OrderProductEntity(Integer amount, ProductEntity product) {
         this.amount = amount;
         this.product = product;
-        this.purchase = purchase;
     }
 
     public Integer getAmount() {
@@ -42,26 +37,17 @@ public class OrderProductEntity extends AbstractEntity {
         this.product = product;
     }
 
-    public PurchaseEntity getPurchase() {
-        return purchase;
-    }
-
-    public void setPurchase(PurchaseEntity purchase) {
-        this.purchase = purchase;
-    }
 
     public static class OrderProductEntityBuilder {
         private Integer amount;
         private ProductEntity product;
-        private PurchaseEntity purchase;
 
         public OrderProductEntityBuilder() {
         }
 
-        public OrderProductEntityBuilder(Integer amount, ProductEntity product, PurchaseEntity purchase) {
+        public OrderProductEntityBuilder(Integer amount, ProductEntity product) {
             this.amount = amount;
             this.product = product;
-            this.purchase = purchase;
         }
 
         public OrderProductEntity.OrderProductEntityBuilder withAmount(Integer amount) {
@@ -74,13 +60,8 @@ public class OrderProductEntity extends AbstractEntity {
             return this;
         }
 
-        public OrderProductEntity.OrderProductEntityBuilder withPurchase(PurchaseEntity purchase) {
-            this.purchase = purchase;
-            return this;
-        }
-
         public OrderProductEntity build() {
-            return new OrderProductEntity(amount, product, purchase);
+            return new OrderProductEntity(amount, product);
         }
     }
 }
