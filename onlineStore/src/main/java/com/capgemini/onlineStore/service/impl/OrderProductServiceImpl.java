@@ -3,8 +3,8 @@ package com.capgemini.onlineStore.service.impl;
 import com.capgemini.onlineStore.persistence.entity.OrderProductEntity;
 import com.capgemini.onlineStore.persistence.mapper.OrderProductMapper;
 import com.capgemini.onlineStore.persistence.mapper.common.CycleAvoidingMappingContext;
-import com.capgemini.onlineStore.persistence.repo.OrderProductRepo;
-import com.capgemini.onlineStore.persistence.repo.PurchaseRepo;
+import com.capgemini.onlineStore.persistence.repo.OrderProductRepository;
+import com.capgemini.onlineStore.persistence.repo.PurchaseRepository;
 import com.capgemini.onlineStore.service.OrderProductService;
 import com.capgemini.onlineStore.to.OrderProductTO;
 import com.google.common.collect.Lists;
@@ -17,10 +17,10 @@ import java.util.List;
 public class OrderProductServiceImpl implements OrderProductService {
 
     @Autowired
-    private OrderProductRepo orderProductRepo;
+    private OrderProductRepository orderProductRepo;
 
     @Autowired
-    private PurchaseRepo purchaseRepo;
+    private PurchaseRepository purchaseRepo;
 
     @Autowired
     private OrderProductMapper orderProductMapper;

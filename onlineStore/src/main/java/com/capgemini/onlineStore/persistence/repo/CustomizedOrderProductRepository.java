@@ -2,7 +2,7 @@ package com.capgemini.onlineStore.persistence.repo;
 
 import java.util.List;
 
-public interface OrderProductRepoCustom {
+public interface CustomizedOrderProductRepository {
 
 
     // double calculateTotalCostOfTransaction(Long id);

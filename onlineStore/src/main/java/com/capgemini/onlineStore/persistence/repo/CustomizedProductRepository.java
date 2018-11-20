@@ -4,7 +4,7 @@ import com.capgemini.onlineStore.persistence.entity.ProductEntity;
 
 import java.util.List;
 
-public interface ProductRepoCustom {
+public interface CustomizedProductRepository {
 
     List<ProductEntity> findByName(String name);
 

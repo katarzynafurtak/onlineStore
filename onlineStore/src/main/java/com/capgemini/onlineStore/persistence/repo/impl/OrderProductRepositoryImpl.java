@@ -1,17 +1,13 @@
 package com.capgemini.onlineStore.persistence.repo.impl;
 
-import com.capgemini.onlineStore.persistence.entity.QOrderProductEntity;
-import com.capgemini.onlineStore.persistence.entity.QProductEntity;
-import com.capgemini.onlineStore.persistence.repo.OrderProductRepoCustom;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.capgemini.onlineStore.persistence.repo.CustomizedOrderProductRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Repository
-public class OrderProductRepoCustomImpl implements OrderProductRepoCustom {
+public class OrderProductRepositoryImpl implements CustomizedOrderProductRepository {
 
     @PersistenceContext
     private EntityManager em;

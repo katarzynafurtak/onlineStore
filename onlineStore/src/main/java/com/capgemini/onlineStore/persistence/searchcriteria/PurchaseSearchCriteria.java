@@ -1,4 +1,4 @@
-package com.capgemini.onlineStore.persistence.repo;
+package com.capgemini.onlineStore.persistence.searchcriteria;
 
 import com.capgemini.onlineStore.persistence.datatype.Status;
 import com.capgemini.onlineStore.persistence.entity.ProductEntity;

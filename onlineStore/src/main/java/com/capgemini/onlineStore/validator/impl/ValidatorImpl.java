@@ -2,7 +2,6 @@ package com.capgemini.onlineStore.validator.impl;
 
 import com.capgemini.onlineStore.persistence.entity.OrderProductEntity;
 import com.capgemini.onlineStore.persistence.entity.PurchaseEntity;
-import com.capgemini.onlineStore.persistence.repo.PurchaseRepo;
 import com.capgemini.onlineStore.service.PurchaseService;
 import com.capgemini.onlineStore.validator.Validator;
 import com.capgemini.onlineStore.validator.exception.InvalidPurchaseException;
