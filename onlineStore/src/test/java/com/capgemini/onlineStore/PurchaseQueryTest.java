@@ -24,8 +24,8 @@ import java.util.Set;
 public class PurchaseQueryTest {
 
     private CustomerEntity customer;
-    private PurchaseEntity purchase1;
-    private PurchaseEntity purchase2;
+    private PurchaseEntity savedPurchase1;
+    private PurchaseEntity savedPurchase2;
 
     @Autowired
     private PurchaseRepo purchaseRepo;
@@ -38,29 +38,33 @@ public class PurchaseQueryTest {
     public void shouldGetAmountOfCompletedPurchasesByCustomer() {
 
         //given
-        purchase1 = CommonTestDataBuilder.commonPurchaseBuilder()
+        PurchaseEntity purchase1 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withCustomer(customer)
                 .withStatus(Status.COMPLETED)
                 .build();
-        purchaseRepo.save(purchase1);
+        savedPurchase1 = purchaseRepo.save(purchase1);
 
-        purchase2 = CommonTestDataBuilder.commonPurchaseBuilder()
+        PurchaseEntity purchase2 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withCustomer(customer)
                 .withStatus(Status.IN_DELIVERY)
                 .build();
-        purchaseRepo.save(purchase2);
+        savedPurchase2 = purchaseRepo.save(purchase2);
 
         Set<PurchaseEntity> purchases = new HashSet<>();
-        purchases.add(purchase1);
-        purchases.add(purchase2);
+        purchases.add(savedPurchase1);
+        purchases.add(savedPurchase2);
 
-        customer = CommonTestDataBuilder.commonCustomerBuilder()
-                .withPurchases(purchases)
+        CustomerEntity customer = CommonTestDataBuilder.commonCustomerBuilder()
+                //.withPurchases(purchases)
                 .build();
-        customerRepo.save(customer);
+        CustomerEntity customerEntity = customerRepo.save(customer);
+
+        Iterable<CustomerEntity> foundCustomers = customerRepo.findAll();
+        Iterable<PurchaseEntity> foundPuchases = purchaseRepo.findAll();
+
 
         //when
-        long result = purchaseRepo.getAmountOfCompletedPurchasesByCustomer(customer);
+        long result = purchaseRepo.getAmountOfCompletedPurchasesByCustomer(customerEntity);
 
         //then
         Assertions.assertThat(result).isEqualTo(1);
@@ -78,6 +82,6 @@ public class PurchaseQueryTest {
         CustomerEntity customerEntity = customerRepo.save(customer);
         CustomerEntity found = customerRepo.findOne(customerEntity.getId());
         //then
-        Assertions.assertThat(found).isNotNull();
+        Assertions.assertThat(found).isEqualTo(customerEntity);
     }
 }

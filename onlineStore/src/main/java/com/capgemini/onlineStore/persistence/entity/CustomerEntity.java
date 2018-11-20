@@ -23,7 +23,7 @@ public class CustomerEntity extends AbstractEntity {
     @Embedded
     private ContactData contactData;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany
     private Set<PurchaseEntity> purchases = new HashSet<>();
 
     public CustomerEntity() {

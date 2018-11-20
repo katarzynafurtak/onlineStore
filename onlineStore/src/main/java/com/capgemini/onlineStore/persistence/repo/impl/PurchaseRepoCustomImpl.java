@@ -18,14 +18,19 @@ public class PurchaseRepoCustomImpl implements PurchaseRepoCustom {
     @Override
     public Long getAmountOfCompletedPurchasesByCustomer(CustomerEntity customerEntity) {
 
+        QCustomerEntity customer = QCustomerEntity.customerEntity;
         QPurchaseEntity purchase = QPurchaseEntity.purchaseEntity;
 
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 
         return queryFactory
-                .from(purchase)
-                .where(purchase.status.in(Status.COMPLETED).and(purchase.customer.eq(customerEntity)))
+                .select(customer.purchases, purchase)
+                .from(customer)
+                .where(purchase.status.eq(Status.COMPLETED).and(customer.eq(customerEntity)))
                 .fetchCount();
     }
+
+
+
 
 }
