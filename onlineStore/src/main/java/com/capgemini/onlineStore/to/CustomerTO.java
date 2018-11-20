@@ -17,18 +17,18 @@ public class CustomerTO extends AbstractTO {
     private LocalDate dateOfBirth;
     @NotNull
     private ContactData contactData;
-    @NotNull
-    private Set<TransactionTO> transactions;
+
+    private Set<PurchaseTO> purchases;
 
     public CustomerTO() {
     }
 
-    public CustomerTO(String firstName, String lastName, LocalDate dateOfBirth, ContactData contactData, Set<TransactionTO> transactions) {
+    public CustomerTO(String firstName, String lastName, LocalDate dateOfBirth, ContactData contactData, Set<PurchaseTO> purchases) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.contactData = contactData;
-        this.transactions = transactions;
+        this.purchases = purchases;
     }
 
     public String getFirstName() {
@@ -63,12 +63,12 @@ public class CustomerTO extends AbstractTO {
         this.contactData = contactData;
     }
 
-    public Set<TransactionTO> getTransactions() {
-        return transactions;
+    public Set<PurchaseTO> getPurchases() {
+        return purchases;
     }
 
-    public void setTransactions(Set<TransactionTO> transactions) {
-        this.transactions = transactions;
+    public void setPurchases(Set<PurchaseTO> purchases) {
+        this.purchases = purchases;
     }
 
     public static class CustomerTOBuilder {
@@ -76,17 +76,17 @@ public class CustomerTO extends AbstractTO {
         private String lastName;
         private LocalDate dateOfBirth;
         private ContactData contactData;
-        private Set<TransactionTO> transactions;
+        private Set<PurchaseTO> purchases;
 
         public CustomerTOBuilder() {
         }
 
-        public CustomerTOBuilder(String firstName, String lastName, LocalDate dateOfBirth, ContactData contactData, Set<TransactionTO> transactions) {
+        public CustomerTOBuilder(String firstName, String lastName, LocalDate dateOfBirth, ContactData contactData, Set<PurchaseTO> purchases) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.dateOfBirth = dateOfBirth;
             this.contactData = contactData;
-            this.transactions = transactions;
+            this.purchases = purchases;
         }
 
         public CustomerTOBuilder withFirstName(String firstName) {
@@ -109,13 +109,13 @@ public class CustomerTO extends AbstractTO {
             return this;
         }
 
-        public CustomerTOBuilder withTransactions(Set<TransactionTO> transactionsToBeAdded) {
-            this.transactions.addAll(transactionsToBeAdded);
+        public CustomerTOBuilder withPurchases(Set<PurchaseTO> purchasesToBeAdded) {
+            this.purchases.addAll(purchasesToBeAdded);
             return this;
         }
 
         public CustomerTO build() {
-            return new CustomerTO(firstName, lastName, dateOfBirth, contactData, transactions);
+            return new CustomerTO(firstName, lastName, dateOfBirth, contactData, purchases);
         }
     }
 
@@ -128,12 +128,12 @@ public class CustomerTO extends AbstractTO {
                 Objects.equals(lastName, that.lastName) &&
                 Objects.equals(dateOfBirth, that.dateOfBirth) &&
                 Objects.equals(contactData, that.contactData) &&
-                Objects.equals(transactions, that.transactions);
+                Objects.equals(purchases, that.purchases);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, dateOfBirth, contactData, transactions);
+        return Objects.hash(firstName, lastName, dateOfBirth, contactData, purchases);
     }
 
     @Override
@@ -143,7 +143,7 @@ public class CustomerTO extends AbstractTO {
                 ", lastName='" + lastName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", contactData=" + contactData +
-                ", transactions=" + transactions +
+                ", purchases=" + purchases +
                 '}';
     }
 }

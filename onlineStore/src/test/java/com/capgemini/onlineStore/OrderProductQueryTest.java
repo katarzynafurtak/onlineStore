@@ -3,7 +3,7 @@ package com.capgemini.onlineStore;
 import com.capgemini.onlineStore.persistence.datatype.Status;
 import com.capgemini.onlineStore.persistence.entity.OrderProductEntity;
 import com.capgemini.onlineStore.persistence.entity.ProductEntity;
-import com.capgemini.onlineStore.persistence.entity.TransactionEntity;
+import com.capgemini.onlineStore.persistence.entity.PurchaseEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,9 +26,9 @@ public class OrderProductQueryTest {
     public void shouldCalculateTotalCostOfTransaction() {
 
         //given
-        TransactionEntity transactionEntity = new TransactionEntity();
-        transactionEntity.setStatus(Status.COMPLETED);
-        manager.persist(transactionEntity);
+        PurchaseEntity purchaseEntity = new PurchaseEntity();
+        purchaseEntity.setStatus(Status.COMPLETED);
+        manager.persist(purchaseEntity);
 
         ProductEntity productEntity1 = new ProductEntity();
         productEntity1.setName("Apple MacBook");
@@ -43,13 +43,13 @@ public class OrderProductQueryTest {
         manager.persist(productEntity2);
 
         OrderProductEntity orderProductEntity1 = new OrderProductEntity();
-        orderProductEntity1.setTransaction(transactionEntity);
+        orderProductEntity1.setPurchase(purchaseEntity);
         orderProductEntity1.setProduct(productEntity1);
         orderProductEntity1.setAmount(1);
         manager.persist(orderProductEntity1);
 
         OrderProductEntity orderProductEntity2 = new OrderProductEntity();
-        orderProductEntity2.setTransaction(transactionEntity);
+        orderProductEntity2.setPurchase(purchaseEntity);
         orderProductEntity2.setProduct(productEntity2);
         orderProductEntity2.setAmount(2);
         manager.persist(orderProductEntity2);

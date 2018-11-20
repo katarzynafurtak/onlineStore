@@ -2,10 +2,6 @@ package com.capgemini.onlineStore.persistence.entity;
 
 import javax.persistence.*;
 
-@NamedQueries({
-        @NamedQuery(name = "Order_product.calculateTotalCost", query = "SELECT c FROM ProductEntity c"),
-
-})
 @Entity
 @Table(name = "ORDER_PRODUCT")
 public class OrderProductEntity extends AbstractEntity {
@@ -14,20 +10,20 @@ public class OrderProductEntity extends AbstractEntity {
     private Integer amount;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product")
     private ProductEntity product;
 
     @ManyToOne
-    @JoinColumn(name = "transaction_id")
-    private TransactionEntity transaction;
+    @JoinColumn(name = "purchase")
+    private PurchaseEntity purchase;
 
     public OrderProductEntity() {
     }
 
-    public OrderProductEntity(Integer amount, ProductEntity product, TransactionEntity transaction) {
+    public OrderProductEntity(Integer amount, ProductEntity product, PurchaseEntity purchase) {
         this.amount = amount;
         this.product = product;
-        this.transaction = transaction;
+        this.purchase = purchase;
     }
 
     public Integer getAmount() {
@@ -46,11 +42,45 @@ public class OrderProductEntity extends AbstractEntity {
         this.product = product;
     }
 
-    public TransactionEntity getTransaction() {
-        return transaction;
+    public PurchaseEntity getPurchase() {
+        return purchase;
     }
 
-    public void setTransaction(TransactionEntity transaction) {
-        this.transaction = transaction;
+    public void setPurchase(PurchaseEntity purchase) {
+        this.purchase = purchase;
+    }
+
+    public static class OrderProductEntityBuilder {
+        private Integer amount;
+        private ProductEntity product;
+        private PurchaseEntity purchase;
+
+        public OrderProductEntityBuilder() {
+        }
+
+        public OrderProductEntityBuilder(Integer amount, ProductEntity product, PurchaseEntity purchase) {
+            this.amount = amount;
+            this.product = product;
+            this.purchase = purchase;
+        }
+
+        public OrderProductEntity.OrderProductEntityBuilder withAmount(Integer amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public OrderProductEntity.OrderProductEntityBuilder withProduct(ProductEntity product) {
+            this.product = product;
+            return this;
+        }
+
+        public OrderProductEntity.OrderProductEntityBuilder withPurchase(PurchaseEntity purchase) {
+            this.purchase = purchase;
+            return this;
+        }
+
+        public OrderProductEntity build() {
+            return new OrderProductEntity(amount, product, purchase);
+        }
     }
 }

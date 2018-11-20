@@ -1,22 +1,45 @@
 package com.capgemini.onlineStore.validator.impl;
 
-import com.capgemini.onlineStore.persistence.entity.TransactionEntity;
-import com.capgemini.onlineStore.persistence.repo.OrderProductRepo;
-import com.capgemini.onlineStore.persistence.repo.TransactionRepo;
+import com.capgemini.onlineStore.persistence.entity.OrderProductEntity;
+import com.capgemini.onlineStore.persistence.entity.PurchaseEntity;
+import com.capgemini.onlineStore.persistence.repo.PurchaseRepo;
+import com.capgemini.onlineStore.service.PurchaseService;
 import com.capgemini.onlineStore.validator.Validator;
-import com.capgemini.onlineStore.validator.exception.InvalidTransactionException;
+import com.capgemini.onlineStore.validator.exception.InvalidPurchaseException;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
+@Transactional(readOnly = true)
 public class ValidatorImpl implements Validator {
 
-    private TransactionRepo transactionRepo;
-
+    private PurchaseRepo purchaseRepo;
+    private PurchaseService purchaseService;
 
     @Override
-    public void validate(TransactionEntity transactionEntity) throws InvalidTransactionException {
-
-        if(transactionRepo.getAmountOfCompletedTransactionsByCustomer(transactionEntity.getCustomer()) < 3 && ) {
-
+    public void validateCustomerAndPurchase(PurchaseEntity purchaseEntity) throws InvalidPurchaseException {
+        if (purchaseRepo.getAmountOfCompletedPurchasesByCustomer(purchaseEntity.getCustomer()) < 3
+                && purchaseService.calculateCostOfOnePurchase(purchaseEntity).compareTo(BigDecimal.valueOf(5000)) > 0) {
+            throw new InvalidPurchaseException("Customer that has less than three completed purchases cannot order over 5000 zł.");
         }
-
     }
+
+    @Override
+    public void validateAmountOfPurchasedProducts(PurchaseEntity purchaseEntity) {
+        if (!getListOfOrdersWithSpecificAmountAndProductPrice(purchaseEntity).isEmpty()) {
+            throw new InvalidPurchaseException("Purchase cannot have more than 5 same products with unit Price bigger than 7000 zł each. ");
+        }
+    }
+
+    private List<OrderProductEntity> getListOfOrdersWithSpecificAmountAndProductPrice(PurchaseEntity purchaseEntity) {
+        return purchaseEntity.getOrders().stream()
+                .filter(o->o.getAmount()>5 && o.getProduct().getPrice().compareTo(BigDecimal.valueOf(7000))>0)
+                .collect(Collectors.toList());
+    }
+
+
 }

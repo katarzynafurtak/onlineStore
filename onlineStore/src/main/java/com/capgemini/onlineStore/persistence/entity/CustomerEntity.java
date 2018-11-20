@@ -24,17 +24,17 @@ public class CustomerEntity extends AbstractEntity {
     private ContactData contactData;
 
     @OneToMany(mappedBy = "customer")
-    private Set<TransactionEntity> transactions = new HashSet<>();
+    private Set<PurchaseEntity> purchases = new HashSet<>();
 
     public CustomerEntity() {
     }
 
-    public CustomerEntity(String firstName, String lastName, LocalDate dateOfBirth, ContactData contactData, Set<TransactionEntity> transactions) {
+    public CustomerEntity(String firstName, String lastName, LocalDate dateOfBirth, ContactData contactData, Set<PurchaseEntity> purchases) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.contactData = contactData;
-        this.transactions = transactions;
+        this.purchases = purchases;
     }
 
     public String getFirstName() {
@@ -69,13 +69,59 @@ public class CustomerEntity extends AbstractEntity {
         this.contactData = contactData;
     }
 
-    public Set<TransactionEntity> getTransactions() {
-        return transactions;
+    public Set<PurchaseEntity> getPurchases() {
+        return purchases;
     }
 
-    public void setTransactions(Set<TransactionEntity> transactions) {
-        this.transactions = transactions;
+    public void setPurchases(Set<PurchaseEntity> purchases) {
+        this.purchases = purchases;
     }
 
+    public static class CustomerEntityBuilder {
+        private String firstName;
+        private String lastName;
+        private LocalDate dateOfBirth;
+        private ContactData contactData;
+        private Set<PurchaseEntity> purchases = new HashSet<>();
 
+        public CustomerEntityBuilder() {
+        }
+
+        public CustomerEntityBuilder(String firstName, String lastName, LocalDate dateOfBirth, ContactData contactData, Set<PurchaseEntity> purchases) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.dateOfBirth = dateOfBirth;
+            this.contactData = contactData;
+            this.purchases = purchases;
+        }
+
+        public CustomerEntityBuilder withFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public CustomerEntityBuilder withLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public CustomerEntityBuilder withDateOfBirth(LocalDate dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
+
+        public CustomerEntityBuilder withContactData(ContactData contactData) {
+            this.contactData = contactData;
+            return this;
+        }
+
+        public CustomerEntityBuilder withPurchases(Set<PurchaseEntity> purchasesToBeAdded) {
+            this.purchases.addAll(purchasesToBeAdded);
+            return this;
+        }
+
+        public CustomerEntity build() {
+            return new CustomerEntity(firstName, lastName, dateOfBirth, contactData, purchases);
+        }
+    }
 }

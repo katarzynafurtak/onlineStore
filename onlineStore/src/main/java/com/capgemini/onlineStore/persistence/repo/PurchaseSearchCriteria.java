@@ -5,7 +5,7 @@ import com.capgemini.onlineStore.persistence.entity.ProductEntity;
 
 import java.time.LocalDateTime;
 
-public class TransactionSearchCriteria {
+public class PurchaseSearchCriteria {
 
     private Status status;
 

@@ -4,7 +4,7 @@ import com.capgemini.onlineStore.persistence.entity.OrderProductEntity;
 import com.capgemini.onlineStore.persistence.mapper.OrderProductMapper;
 import com.capgemini.onlineStore.persistence.mapper.common.CycleAvoidingMappingContext;
 import com.capgemini.onlineStore.persistence.repo.OrderProductRepo;
-import com.capgemini.onlineStore.persistence.repo.TransactionRepo;
+import com.capgemini.onlineStore.persistence.repo.PurchaseRepo;
 import com.capgemini.onlineStore.service.OrderProductService;
 import com.capgemini.onlineStore.to.OrderProductTO;
 import com.google.common.collect.Lists;
@@ -20,7 +20,7 @@ public class OrderProductServiceImpl implements OrderProductService {
     private OrderProductRepo orderProductRepo;
 
     @Autowired
-    private TransactionRepo transactionRepo;
+    private PurchaseRepo purchaseRepo;
 
     @Autowired
     private OrderProductMapper orderProductMapper;

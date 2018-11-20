@@ -12,15 +12,15 @@ public class OrderProductTO extends AbstractTO {
     @NotNull
     private ProductTO product;
     @NotNull
-    private TransactionTO transaction;
+    private PurchaseTO purchase;
 
     public OrderProductTO() {
     }
 
-    public OrderProductTO(Integer amount, ProductTO product, TransactionTO transaction) {
+    public OrderProductTO(Integer amount, ProductTO product, PurchaseTO purchase) {
         this.amount = amount;
         this.product = product;
-        this.transaction = transaction;
+        this.purchase = purchase;
     }
 
     public Integer getAmount() {
@@ -39,26 +39,26 @@ public class OrderProductTO extends AbstractTO {
         this.product = product;
     }
 
-    public TransactionTO getTransaction() {
-        return transaction;
+    public PurchaseTO getPurchase() {
+        return purchase;
     }
 
-    public void setTransaction(TransactionTO transaction) {
-        this.transaction = transaction;
+    public void setPurchase(PurchaseTO purchase) {
+        this.purchase = purchase;
     }
 
     public static class OrderProductTOBuilder {
         private Integer amount;
         private ProductTO product;
-        private TransactionTO transaction;
+        private PurchaseTO purchase;
 
         public OrderProductTOBuilder() {
         }
 
-        public OrderProductTOBuilder(Integer amount, ProductTO product, TransactionTO transaction) {
+        public OrderProductTOBuilder(Integer amount, ProductTO product, PurchaseTO purchase) {
             this.amount = amount;
             this.product = product;
-            this.transaction = transaction;
+            this.purchase = purchase;
         }
 
         public OrderProductTOBuilder withAmount(Integer amount) {
@@ -71,13 +71,13 @@ public class OrderProductTO extends AbstractTO {
             return this;
         }
 
-        public OrderProductTOBuilder withTransaction(TransactionTO transaction) {
-            this.transaction = transaction;
+        public OrderProductTOBuilder withPurchase(PurchaseTO purchase) {
+            this.purchase = purchase;
             return this;
         }
 
         public OrderProductTO build() {
-            return new OrderProductTO(amount, product, transaction);
+            return new OrderProductTO(amount, product, purchase);
         }
     }
 
@@ -88,12 +88,12 @@ public class OrderProductTO extends AbstractTO {
         OrderProductTO that = (OrderProductTO) o;
         return Objects.equals(amount, that.amount) &&
                 Objects.equals(product, that.product) &&
-                Objects.equals(transaction, that.transaction);
+                Objects.equals(purchase, that.purchase);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(amount, product, transaction);
+        return Objects.hash(amount, product, purchase);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class OrderProductTO extends AbstractTO {
         return "OrderProductTO{" +
                 "amount=" + amount +
                 ", product=" + product +
-                ", transaction=" + transaction +
+                ", purchase=" + purchase +
                 '}';
     }
 }

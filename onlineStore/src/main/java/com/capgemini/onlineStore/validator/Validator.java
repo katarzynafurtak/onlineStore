@@ -1,9 +1,10 @@
 package com.capgemini.onlineStore.validator;
 
-import com.capgemini.onlineStore.persistence.entity.TransactionEntity;
+import com.capgemini.onlineStore.persistence.entity.PurchaseEntity;
 
 public interface Validator {
 
+    void validateCustomerAndPurchase(PurchaseEntity purchaseEntity);
 
-    void validate(TransactionEntity transactionEntity);
+    void validateAmountOfPurchasedProducts(PurchaseEntity purchaseEntity);
 }

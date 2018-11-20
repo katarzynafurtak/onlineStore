@@ -5,7 +5,7 @@ import com.capgemini.onlineStore.service.OrderProductService;
 import com.capgemini.onlineStore.service.ProductService;
 import com.capgemini.onlineStore.to.OrderProductTO;
 import com.capgemini.onlineStore.to.ProductTO;
-import com.capgemini.onlineStore.to.TransactionTO;
+import com.capgemini.onlineStore.to.PurchaseTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ public class OrderProductTest {
     @Before
     public void initialize() {
 
-//        TransactionTO trans1 = new TransactionTO.TransactionTOBuilder()
+//        PurchaseTO trans1 = new PurchaseTO.PurchaseTOBuilder()
 //                .withCustomer()
 //
 //
@@ -68,13 +68,13 @@ public class OrderProductTest {
 //                .withContactData(contactData)
 //                .build();
 //
-//        TransactionTO customTransaction = new TransactionTO.TransactionTOBuilder()
+//        PurchaseTO customTransaction = new PurchaseTO.PurchaseTOBuilder()
 //                .withStatus(Status.COMPLETED)
 //                .withCustomer(customCustomer)
 //                .build();
 //
-//        Set<TransactionTO> transactions = new HashSet<>();
-//        transactions.add(customTransaction);
+//        Set<PurchaseTO> purchases = new HashSet<>();
+//        purchases.add(customTransaction);
 //
 
 
@@ -86,10 +86,10 @@ public class OrderProductTest {
 
 
     @Test
-    public void shouldCalculateTotalCostOfTransaction() {
+    public void shouldCalculateTotalCostOPurchase() {
 
         //given
-        TransactionTO trans1 = new TransactionTO.TransactionTOBuilder()
+        PurchaseTO pur1 = new PurchaseTO.PurchaseTOBuilder()
                 .withStatus(Status.COMPLETED)
                 .build();
 
@@ -112,14 +112,14 @@ public class OrderProductTest {
         OrderProductTO order1 = new OrderProductTO.OrderProductTOBuilder()
                 .withAmount(1)
                 .withProduct(product1)
-                .withTransaction(trans1)
+                .withPurchase(pur1)
                 .build();
         orderProductService.saveOrder(order1);
 
         OrderProductTO order2 = new OrderProductTO.OrderProductTOBuilder()
                 .withAmount(2)
                 .withProduct(product2)
-                .withTransaction(trans1)
+                .withPurchase(pur1)
                 .build();
         orderProductService.saveOrder(order2);
 
@@ -128,13 +128,13 @@ public class OrderProductTest {
         double expectedResult = 0.00;
 
         for (OrderProductTO order : orderProductService.findAllOrders()) {
-            if (order.getTransaction().getId() == trans1.getId()) {
+            if (order.getPurchase().getId() == pur1.getId()) {
                 expectedResult += (order.getAmount()* order.getProduct().getPrice().doubleValue())/(1-(0.01*order.getProduct().getMarge().doubleValue()));
             }
         }
 //
 //        //when
-//        double totalCost = orderProductService.calculateTotalCost(trans1.getId());
+//        double totalCost = orderProductService.calculateTotalCost(pur1.getId());
 //
 //        //then
 //        Assertions.assertThat(expectedResult).isEqualTo(totalCost);

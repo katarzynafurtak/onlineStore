@@ -1,24 +1,27 @@
 package com.capgemini.onlineStore.to;
 
 import com.capgemini.onlineStore.persistence.datatype.Status;
-import com.capgemini.onlineStore.to.CustomerTO;
 
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
+import java.util.Set;
 
-public class TransactionTO extends AbstractTO {
+public class PurchaseTO extends AbstractTO {
 
     @NotNull
     private Status status;
     @NotNull
     private CustomerTO customer;
+    @NotNull
+    private Set<OrderProductTO> orders;
 
-    public TransactionTO() {
+    public PurchaseTO() {
     }
 
-    public TransactionTO(Status status, CustomerTO customer) {
+    public PurchaseTO(Status status, CustomerTO customer, Set<OrderProductTO> orders) {
         this.status = status;
         this.customer = customer;
+        this.orders = orders;
     }
 
     public Status getStatus() {
@@ -37,30 +40,45 @@ public class TransactionTO extends AbstractTO {
         this.customer = customer;
     }
 
-    public static class TransactionTOBuilder {
+    public Set<OrderProductTO> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderProductTO> orders) {
+        this.orders = orders;
+    }
+
+    public static class PurchaseTOBuilder {
         private Status status;
         private CustomerTO customer;
+        private Set<OrderProductTO> orders;
 
-        public TransactionTOBuilder() {
+        public PurchaseTOBuilder() {
         }
 
-        public TransactionTOBuilder(Status status, CustomerTO customer) {
+        public PurchaseTOBuilder(Status status, CustomerTO customer, Set<OrderProductTO> orders) {
             this.status = status;
             this.customer = customer;
+            this.orders = orders;
         }
 
-        public TransactionTOBuilder withStatus(Status status) {
+        public PurchaseTOBuilder withStatus(Status status) {
             this.status = status;
             return this;
         }
 
-        public TransactionTOBuilder withCustomer(CustomerTO customer) {
+        public PurchaseTOBuilder withCustomer(CustomerTO customer) {
             this.customer = customer;
             return this;
         }
 
-        public TransactionTO build() {
-            return new TransactionTO(status, customer);
+        public PurchaseTOBuilder withOrders(Set<OrderProductTO> ordersToBeAdded) {
+            this.orders.addAll(ordersToBeAdded);
+            return this;
+        }
+
+        public PurchaseTO build() {
+            return new PurchaseTO(status, customer, orders);
         }
     }
 
@@ -68,21 +86,23 @@ public class TransactionTO extends AbstractTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TransactionTO that = (TransactionTO) o;
+        PurchaseTO that = (PurchaseTO) o;
         return status == that.status &&
-                Objects.equals(customer, that.customer);
+                Objects.equals(customer, that.customer) &&
+                Objects.equals(orders, that.orders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(status, customer);
+        return Objects.hash(status, customer, orders);
     }
 
     @Override
     public String toString() {
-        return "TransactionTO{" +
+        return "PurchaseTO{" +
                 "status=" + status +
                 ", customer=" + customer +
+                ", orders=" + orders +
                 '}';
     }
 }

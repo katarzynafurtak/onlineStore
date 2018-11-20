@@ -66,4 +66,45 @@ public class ProductEntity extends AbstractEntity {
     public void setWeight(BigDecimal weight) {
         this.weight = weight;
     }
+
+    public static class ProductEntityBuilder {
+        private String name;
+        private BigDecimal marge;
+        private BigDecimal price;
+        private BigDecimal weight;
+
+        public ProductEntityBuilder() {
+        }
+
+        public ProductEntityBuilder(String name, BigDecimal marge, BigDecimal price, BigDecimal weight) {
+            this.name = name;
+            this.marge = marge;
+            this.price = price;
+            this.weight = weight;
+        }
+
+        public ProductEntity.ProductEntityBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ProductEntity.ProductEntityBuilder withMarge(BigDecimal marge) {
+            this.marge = marge;
+            return this;
+        }
+
+        public ProductEntity.ProductEntityBuilder withPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public ProductEntity.ProductEntityBuilder withWeight(BigDecimal weight) {
+            this.weight = weight;
+            return this;
+        }
+
+        public ProductEntity build() {
+            return new ProductEntity(name, marge, price, weight);
+        }
+    }
 }
