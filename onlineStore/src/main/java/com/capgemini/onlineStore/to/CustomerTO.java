@@ -71,6 +71,34 @@ public class CustomerTO extends AbstractTO {
         this.purchases = purchases;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerTO that = (CustomerTO) o;
+        return Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(dateOfBirth, that.dateOfBirth) &&
+                Objects.equals(contactData, that.contactData) &&
+                Objects.equals(purchases, that.purchases);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, dateOfBirth, contactData, purchases);
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerTO{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", contactData=" + contactData +
+                ", purchases=" + purchases +
+                '}';
+    }
+
     public static class CustomerTOBuilder {
         private String firstName;
         private String lastName;
@@ -117,34 +145,6 @@ public class CustomerTO extends AbstractTO {
         public CustomerTO build() {
             return new CustomerTO(firstName, lastName, dateOfBirth, contactData, purchases);
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CustomerTO that = (CustomerTO) o;
-        return Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName) &&
-                Objects.equals(dateOfBirth, that.dateOfBirth) &&
-                Objects.equals(contactData, that.contactData) &&
-                Objects.equals(purchases, that.purchases);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, dateOfBirth, contactData, purchases);
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerTO{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", contactData=" + contactData +
-                ", purchases=" + purchases +
-                '}';
     }
 }
 

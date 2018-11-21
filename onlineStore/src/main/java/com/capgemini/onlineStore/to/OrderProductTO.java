@@ -3,6 +3,9 @@ package com.capgemini.onlineStore.to;
 import com.capgemini.onlineStore.to.ProductTO;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class OrderProductTO extends AbstractTO {
@@ -11,13 +14,22 @@ public class OrderProductTO extends AbstractTO {
     private Integer amount;
     @NotNull
     private ProductTO product;
+    @NotNull
+    private BigDecimal sellPrice;
 
     public OrderProductTO() {
     }
 
-    public OrderProductTO(Integer amount, ProductTO product) {
+    public OrderProductTO(Integer amount, ProductTO product, BigDecimal sellPrice) {
         this.amount = amount;
         this.product = product;
+        this.sellPrice = calculateSellPrice();
+    }
+
+    private BigDecimal calculateSellPrice() {
+        return product.getPrice()
+                .multiply(BigDecimal.valueOf(100)
+                        .divide(BigDecimal.valueOf(100).subtract(product.getMarge() ), RoundingMode.HALF_UP));
     }
 
     public Integer getAmount() {
@@ -36,32 +48,12 @@ public class OrderProductTO extends AbstractTO {
         this.product = product;
     }
 
-    public static class OrderProductTOBuilder {
-        private Integer amount;
-        private ProductTO product;
+    public BigDecimal getSellPrice() {
+        return sellPrice;
+    }
 
-        public OrderProductTOBuilder() {
-        }
-
-        public OrderProductTOBuilder(Integer amount, ProductTO product) {
-            this.amount = amount;
-            this.product = product;
-        }
-
-        public OrderProductTOBuilder withAmount(Integer amount) {
-            this.amount = amount;
-            return this;
-        }
-
-        public OrderProductTOBuilder withProduct(ProductTO product) {
-            this.product = product;
-            return this;
-        }
-
-
-        public OrderProductTO build() {
-            return new OrderProductTO(amount, product);
-        }
+    public void setSellPrice(BigDecimal sellPrice) {
+        this.sellPrice = sellPrice;
     }
 
     @Override
@@ -84,6 +76,40 @@ public class OrderProductTO extends AbstractTO {
                 "amount=" + amount +
                 ", product=" + product +
                 '}';
+    }
+
+    public static class OrderProductTOBuilder {
+        private Integer amount;
+        private ProductTO product;
+        private BigDecimal sellPrice;
+
+        public OrderProductTOBuilder() {
+        }
+
+        public OrderProductTOBuilder(Integer amount, ProductTO product, BigDecimal sellPrice) {
+            this.amount = amount;
+            this.product = product;
+            this.sellPrice = sellPrice;
+        }
+
+        public OrderProductTOBuilder withAmount(Integer amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public OrderProductTOBuilder withProduct(ProductTO product) {
+            this.product = product;
+            return this;
+        }
+
+        public OrderProductTOBuilder withSellPrice(BigDecimal sellPrice) {
+            this.product = product;
+            return this;
+        }
+
+        public OrderProductTO build() {
+            return new OrderProductTO(amount, product, sellPrice);
+        }
     }
 }
 
