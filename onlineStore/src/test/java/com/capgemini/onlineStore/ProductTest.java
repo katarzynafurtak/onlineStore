@@ -16,9 +16,6 @@ import javax.persistence.OptimisticLockException;
 @SpringBootTest
 public class ProductTest {
 
-//    @PersistenceContext
-//    private EntityManager em;
-
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
@@ -30,8 +27,6 @@ public class ProductTest {
 
         EntityManager em = entityManagerFactory.createEntityManager();
 
-
-        //given
         em.getTransaction().begin();
         ProductEntity product = new ProductEntity();
         product.setName("Pralka");
@@ -53,52 +48,5 @@ public class ProductTest {
         foundProduct.setName("Lokówka");
         em.merge(foundProduct);
         em.getTransaction().commit();
-
-
-//
-//        Transaction transaction1 = sessionFactory.getCurrentSession().beginTransaction();
-//
-//        ProductEntity copy1 = productRepo.findAll().get(0);
-//        copy1.setName("Suszarka");
-//        productRepo.save(copy1);
-//
-//        Transaction transaction2 = sessionFactory.getCurrentSession().beginTransaction();
-//
-//        ProductEntity copy2 = productRepo.findAll().get(0);
-//        copy2.setName("Lokówka");
-//        productRepo.save(copy1);
-//
-//       transaction1.commit();
-//       transaction2.commit();
-//
-//
-//        List<ProductEntity> foundProducts = productRepo.findAll();
-//        Assertions.assertThat(foundProducts).hasSize(1);
-//        Assertions.assertThat(foundProducts.get(0).getName()).isEqualTo("Suszarka");
-
-
     }
-
-
-//        EntityManager em = emf.createEntityManager();
-//        em.getTransaction().begin();
-//        CourseEntity savedJavaCourse = cr.save(CourseEtyTestSet.JAVA_COURSE_1);
-//        em.getTransaction().commit();
-//
-//        em.getTransaction().begin();
-//        CourseEntity detachedCourse = cr.findById(savedJavaCourse.getId()).get();
-//        em.detach(detachedCourse);
-//        em.getTransaction().commit();
-//
-//        em.getTransaction().begin();
-//        CourseEntity course = cr.findById(savedJavaCourse.getId()).get();
-//        course.setName("abcdef");
-//        cr.save(course);
-//        em.getTransaction().commit();
-//
-//        em.getTransaction().begin();
-//        detachedCourse.setName("xyz");
-//        em.merge(detachedCourse);
-//        em.getTransaction().commit();
-
-    }
+}

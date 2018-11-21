@@ -1,14 +1,11 @@
 package com.capgemini.onlineStore.persistence.entity;
 
 import com.capgemini.onlineStore.persistence.datatype.Status;
-import com.google.common.collect.Sets;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "PURCHASE")
@@ -21,7 +18,8 @@ public class PurchaseEntity extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn
     private List<OrderProductEntity> orders = new ArrayList<>();
 
     public PurchaseEntity() {
@@ -72,6 +70,14 @@ public class PurchaseEntity extends AbstractEntity {
 
         public PurchaseEntity.PurchaseEntityBuilder withStatus(Status status) {
             this.status = status;
+            return this;
+        }
+
+        public PurchaseEntity.PurchaseEntityBuilder withOrder(OrderProductEntity order) {
+            if (orders == null) {
+                orders = new ArrayList<>();
+            }
+            orders.add(order);
             return this;
         }
 

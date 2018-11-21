@@ -136,26 +136,21 @@ public class PurchaseQueryTest {
                 .withProduct(product3).build();
         OrderProductEntity savedOrder3 = orderProductRepository.save(order3);
 
-        Set<OrderProductEntity> orders1 = new HashSet<>();
-        orders1.add(order1);
-        orders1.add(order2);
-
         PurchaseEntity purchase1 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.IN_PROGRESS)
-                .withOrders(orders1).build();
+                .withOrder(savedOrder1)
+                .withOrder(savedOrder2).build();
         PurchaseEntity savedPurchase1 = purchaseRepository.save(purchase1);
-
-        Set<OrderProductEntity> orders2 = new HashSet<>();
-        orders2.add(order3);
 
         PurchaseEntity purchase2 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.IN_PROGRESS)
-                .withOrders(orders2).build();
+                .withOrder(savedOrder3).build();
         PurchaseEntity savedPurchase2 = purchaseRepository.save(purchase2);
 
         PurchaseEntity purchase3 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.CANCELLED)
-                .withOrders(orders1).build();
+                .withOrder(savedOrder1)
+                .withOrder(savedOrder2).build();
         PurchaseEntity savedPurchase3 = purchaseRepository.save(purchase3);
 
         //when
@@ -179,42 +174,34 @@ public class PurchaseQueryTest {
 
         OrderProductEntity order1 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(5)
-                .withProduct(product1).build();
+                .withProduct(savedProduct1).build();
         OrderProductEntity savedOrder1 = orderProductRepository.save(order1);
 
         OrderProductEntity order2 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(3)
-                .withProduct(product2).build();
+                .withProduct(savedProduct2).build();
         OrderProductEntity savedOrder2 = orderProductRepository.save(order2);
 
         OrderProductEntity order3 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(10)
-                .withProduct(product1).build();
+                .withProduct(savedProduct1).build();
         OrderProductEntity savedOrder3 = orderProductRepository.save(order3);
-
-        Set<OrderProductEntity> orders1 = new HashSet<>();
-        orders1.add(order1);
-        orders1.add(order2);
 
         PurchaseEntity purchase1 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.IN_PROGRESS)
-                .withOrders(orders1).build();
+                .withOrder(order1)
+                .withOrder(order2).build();
         PurchaseEntity savedPurchase1 = purchaseRepository.save(purchase1);
-
-        Set<OrderProductEntity> orders2 = new HashSet<>();
-        orders2.add(order3);
 
         PurchaseEntity purchase2 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.AWAITING_PAYMENT)
-                .withOrders(orders2).build();
+                .withOrder(savedOrder3)
+                .build();
         PurchaseEntity savedPurchase2 = purchaseRepository.save(purchase2);
 
-        Set<PurchaseEntity> purchases = new HashSet<>();
-        purchases.add(purchase1);
-        purchases.add(purchase2);
-
         CustomerEntity customer = CommonTestDataBuilder.commonCustomerBuilder()
-                .withPurchases(purchases).build();
+                .withPurchase(savedPurchase1)
+                .withPurchase(savedPurchase2).build();
         CustomerEntity savedCustomer = customerRepository.save(customer);
 
         //when
@@ -224,8 +211,8 @@ public class PurchaseQueryTest {
 
         //then
         Assertions.assertThat(totalCostPurchasesWithStatus)
-                .isNotNull();
-
+                .isNotNull()
+                .isEqualByComparingTo(BigDecimal.valueOf(80000.00));
     }
 
     @Test
@@ -242,42 +229,34 @@ public class PurchaseQueryTest {
 
         OrderProductEntity order1 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(5)
-                .withProduct(product1).build();
+                .withProduct(savedProduct1).build();
         OrderProductEntity savedOrder1 = orderProductRepository.save(order1);
 
         OrderProductEntity order2 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(3)
-                .withProduct(product2).build();
+                .withProduct(savedProduct2).build();
         OrderProductEntity savedOrder2 = orderProductRepository.save(order2);
 
         OrderProductEntity order3 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(10)
-                .withProduct(product1).build();
+                .withProduct(savedProduct1).build();
         OrderProductEntity savedOrder3 = orderProductRepository.save(order3);
-
-        Set<OrderProductEntity> orders1 = new HashSet<>();
-        orders1.add(order1);
-        orders1.add(order2);
 
         PurchaseEntity purchase1 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.IN_PROGRESS)
-                .withOrders(orders1).build();
+                .withOrder(savedOrder1)
+                .withOrder(savedOrder2).build();
         PurchaseEntity savedPurchase1 = purchaseRepository.save(purchase1);
-
-        Set<OrderProductEntity> orders2 = new HashSet<>();
-        orders2.add(order3);
 
         PurchaseEntity purchase2 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.AWAITING_PAYMENT)
-                .withOrders(orders2).build();
+                .withOrder(savedOrder3)
+                .build();
         PurchaseEntity savedPurchase2 = purchaseRepository.save(purchase2);
 
-        Set<PurchaseEntity> purchases = new HashSet<>();
-        purchases.add(purchase1);
-        purchases.add(purchase2);
-
         CustomerEntity customer = CommonTestDataBuilder.commonCustomerBuilder()
-                .withPurchases(purchases).build();
+                .withPurchase(savedPurchase1)
+                .withPurchase(savedPurchase2).build();
         CustomerEntity savedCustomer = customerRepository.save(customer);
 
         //when
@@ -285,9 +264,8 @@ public class PurchaseQueryTest {
         BigDecimal totalCostPurchases = purchaseRepository.totalCostPurchases(savedCustomer.getId());
         //then
         Assertions.assertThat(totalCostPurchases)
-                .isNotNull();
-
-
+                .isNotNull()
+                .isEqualByComparingTo(BigDecimal.valueOf(180000.00));
     }
 
     @Test
@@ -304,61 +282,54 @@ public class PurchaseQueryTest {
 
         OrderProductEntity order1 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(5)
-                .withProduct(product1).build();
+                .withProduct(savedProduct1).build();
         OrderProductEntity savedOrder1 = orderProductRepository.save(order1);
 
         OrderProductEntity order2 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(3)
-                .withProduct(product2).build();
+                .withProduct(savedProduct2).build();
         OrderProductEntity savedOrder2 = orderProductRepository.save(order2);
 
         OrderProductEntity order3 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(10)
-                .withProduct(product1).build();
+                .withProduct(savedProduct1).build();
         OrderProductEntity savedOrder3 = orderProductRepository.save(order3);
-
-        Set<OrderProductEntity> orders1 = new HashSet<>();
-        orders1.add(order1);
-        orders1.add(order2);
 
         PurchaseEntity purchase1 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.IN_PROGRESS)
-                .withOrders(orders1).build();
+                .withOrder(savedOrder1)
+                .withOrder(savedOrder2)
+                .build();
         PurchaseEntity savedPurchase1 = purchaseRepository.save(purchase1);
-
-        Set<OrderProductEntity> orders2 = new HashSet<>();
-        orders2.add(order3);
 
         PurchaseEntity purchase2 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.AWAITING_PAYMENT)
-                .withOrders(orders2).build();
+                .withOrder(savedOrder3).build();
         PurchaseEntity savedPurchase2 = purchaseRepository.save(purchase2);
-
-        Set<PurchaseEntity> purchases1 = new HashSet<>();
-        purchases1.add(purchase1);
-        purchases1.add(purchase2);
 
         PurchaseEntity purchase3 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.IN_PROGRESS)
-                .withOrders(orders1).build();
+                .withOrder(savedOrder1)
+                .withOrder(savedOrder2)
+                .build();
         PurchaseEntity savedPurchase3 = purchaseRepository.save(purchase3);
 
-        Set<PurchaseEntity> purchases2 = new HashSet<>();
-        purchases2.add(purchase3);
-
         CustomerEntity customer1 = CommonTestDataBuilder.commonCustomerBuilder()
-                .withPurchases(purchases1).build();
+                .withPurchase(savedPurchase1)
+                .withPurchase(savedPurchase2)
+                .build();
         CustomerEntity savedCustomer1 = customerRepository.save(customer1);
 
         CustomerEntity customer2 = CommonTestDataBuilder.commonCustomerBuilder()
-                .withPurchases(purchases2).build();
+                .withPurchase(savedPurchase3).build();
         CustomerEntity savedCustomer = customerRepository.save(customer2);
 
         //when
         BigDecimal totalCost = purchaseRepository.totalCostPurchasesWithStatusForAllCustomers(Status.IN_PROGRESS);
         //then
         Assertions.assertThat(totalCost)
-                .isNotNull();
+                .isNotNull()
+                .isEqualByComparingTo(BigDecimal.valueOf(80000.00));
     }
 
     @Test
@@ -379,170 +350,49 @@ public class PurchaseQueryTest {
 
         OrderProductEntity order1 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(2)
-                .withProduct(product1).build();
+                .withProduct(savedProduct1).build();
         OrderProductEntity savedOrder1 = orderProductRepository.save(order1);
 
         OrderProductEntity order2 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(1)
-                .withProduct(product3).build();
+                .withProduct(savedProduct3).build();
         OrderProductEntity savedOrder2 = orderProductRepository.save(order2);
 
         OrderProductEntity order3 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(6)
-                .withProduct(product2).build();
+                .withProduct(savedProduct2).build();
         OrderProductEntity savedOrder3 = orderProductRepository.save(order3);
 
         OrderProductEntity order4 = CommonTestDataBuilder.commonOrderProductBuilder()
                 .withAmount(4)
-                .withProduct(product1).build();
+                .withProduct(savedProduct1).build();
         OrderProductEntity savedOrder4 = orderProductRepository.save(order4);
-
-        Set<OrderProductEntity> orders1 = new HashSet<>();
-        orders1.add(order1);
-        orders1.add(order2);
 
         PurchaseEntity purchase1 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.COMPLETED)
-                .withOrders(orders1).build();
+                .withOrder(savedOrder1)
+                .withOrder(savedOrder2)
+                .build();
         PurchaseEntity savedPurchase1 = purchaseRepository.save(purchase1);
-
-        Set<OrderProductEntity> orders2 = new HashSet<>();
-        orders2.add(order2);
 
         PurchaseEntity purchase2 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.CANCELLED)
-                .withOrders(orders2).build();
+                .withOrder(savedOrder2).build();
         PurchaseEntity savedPurchase2 = purchaseRepository.save(purchase2);
-
-        Set<OrderProductEntity> orders3 = new HashSet<>();
-        orders3.add(order2);
-        orders3.add(order3);
-        orders3.add(order4);
 
         PurchaseEntity purchase3 = CommonTestDataBuilder.commonPurchaseBuilder()
                 .withStatus(Status.IN_PROGRESS)
-                .withOrders(orders3).build();
+                .withOrder(savedOrder2)
+                .withOrder(savedOrder3)
+                .withOrder(savedOrder4).build();
         PurchaseEntity savedPurchase3 = purchaseRepository.save(purchase3);
 
         //when
-
         List<ProductEntity> tenTopSelling = productRepository.tenTopSelling();
+
         //then
         Assertions.assertThat(tenTopSelling)
                 .isNotNull()
                 .isNotEmpty();
-
     }
-
-//    @Test
-//    public void shouldFindSpecificAmountOfBestCustomersInSpecificTime() {
-//
-//        //given
-//        ProductEntity product1 = CommonTestDataBuilder.commonProductBuilder()
-//                .withName("TV")
-//                .withPrice(BigDecimal.valueOf(9000))
-//                .build();
-//        ProductEntity savedProduct1 = productRepository.save(product1);
-//
-//        ProductEntity product2 = CommonTestDataBuilder.commonProductBuilder()
-//                .withName("Computer")
-//                .withPrice(BigDecimal.valueOf(1000))
-//                .build();
-//        ProductEntity savedProduct2 = productRepository.save(product2);
-//
-//        OrderProductEntity order1 = CommonTestDataBuilder.commonOrderProductBuilder()
-//                .withAmount(1)
-//                .withProduct(product1).build();
-//        OrderProductEntity savedOrder1 = orderProductRepository.save(order1);
-//
-//        OrderProductEntity order2 = CommonTestDataBuilder.commonOrderProductBuilder()
-//                .withAmount(1)
-//                .withProduct(product2).build();
-//        OrderProductEntity savedOrder2 = orderProductRepository.save(order2);
-//
-//        OrderProductEntity order3 = CommonTestDataBuilder.commonOrderProductBuilder()
-//                .withAmount(5)
-//                .withProduct(product1).build();
-//        OrderProductEntity savedOrder3 = orderProductRepository.save(order3);
-//
-//        Set<OrderProductEntity> orders1 = new HashSet<>();
-//        orders1.add(order1);
-//        orders1.add(order2);
-//
-//        PurchaseEntity purchase1 = CommonTestDataBuilder.commonPurchaseBuilder()
-//                .withStatus(Status.COMPLETED)
-//                .withOrders(orders1).build();
-//        PurchaseEntity savedPurchase1 = purchaseRepository.save(purchase1);
-//
-//        Set<OrderProductEntity> orders2 = new HashSet<>();
-//        orders2.add(order2);
-//
-//        PurchaseEntity purchase2 = CommonTestDataBuilder.commonPurchaseBuilder()
-//                .withStatus(Status.COMPLETED)
-//                .withOrders(orders2).build();
-//        PurchaseEntity savedPurchase2 = purchaseRepository.save(purchase2);
-//
-//        Set<OrderProductEntity> orders3 = new HashSet<>();
-//        orders3.add(order3);
-//
-//        PurchaseEntity purchase3 = CommonTestDataBuilder.commonPurchaseBuilder()
-//                .withStatus(Status.COMPLETED)
-//                .withOrders(orders3).build();
-//        PurchaseEntity savedPurchase3 = purchaseRepository.save(purchase3);
-//
-//        Set<OrderProductEntity> orders4 = new HashSet<>();
-//        orders4.add(order3);
-//
-//        PurchaseEntity purchase4 = CommonTestDataBuilder.commonPurchaseBuilder()
-//                .withStatus(Status.COMPLETED)
-//                .withOrders(orders4).build();
-//        PurchaseEntity savedPurchase4 = purchaseRepository.save(purchase4);
-//
-//        Set<OrderProductEntity> orders5 = new HashSet<>();
-//        orders5.add(order2);
-//
-//        PurchaseEntity purchase5 = CommonTestDataBuilder.commonPurchaseBuilder()
-//                .withStatus(Status.COMPLETED)
-//                .withOrders(orders5).build();
-//        PurchaseEntity savedPurchase5 = purchaseRepository.save(purchase5);
-//
-//        Set<PurchaseEntity> purchases1 = new HashSet<>();
-//        purchases1.add(purchase1);
-//        purchases1.add(purchase2);
-//
-//        CustomerEntity customer1 = CommonTestDataBuilder.commonCustomerBuilder()
-//                .withPurchases(purchases1).build();
-//        CustomerEntity savedCustomer1 = customerRepository.save(customer1);
-//
-//        Set<PurchaseEntity> purchases2 = new HashSet<>();
-//        purchases2.add(purchase3);
-//
-//        CustomerEntity customer2 = CommonTestDataBuilder.commonCustomerBuilder()
-//                .withPurchases(purchases2).build();
-//        CustomerEntity savedCustomer = customerRepository.save(customer2);
-//
-//        Set<PurchaseEntity> purchases3 = new HashSet<>();
-//        purchases3.add(purchase3);
-//
-//        CustomerEntity customer2 = CommonTestDataBuilder.commonCustomerBuilder()
-//                .withPurchases(purchases2).build();
-//        CustomerEntity savedCustomer = customerRepository.save(customer2);
-//
-//        Set<PurchaseEntity> purchases2 = new HashSet<>();
-//        purchases2.add(purchase3);
-//
-//        CustomerEntity customer2 = CommonTestDataBuilder.commonCustomerBuilder()
-//                .withPurchases(purchases2).build();
-//        CustomerEntity savedCustomer = customerRepository.save(customer2);
-//
-//        //when
-//
-//        //then
-//
-//
-//    }
-
-
-
-
 }

@@ -2,7 +2,6 @@ package com.capgemini.onlineStore.to;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Objects;
 
 public class OrderProductTO extends AbstractTO {
@@ -20,13 +19,7 @@ public class OrderProductTO extends AbstractTO {
     public OrderProductTO(Integer amount, ProductTO product, BigDecimal sellPrice) {
         this.amount = amount;
         this.product = product;
-        this.sellPrice = calculateSellPrice();
-    }
-
-    private BigDecimal calculateSellPrice() {
-        return product.getPrice()
-                .multiply(BigDecimal.valueOf(100)
-                        .divide(BigDecimal.valueOf(100).subtract(product.getMarge() ), RoundingMode.HALF_UP));
+        this.sellPrice = sellPrice;
     }
 
     public Integer getAmount() {

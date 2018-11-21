@@ -2,6 +2,8 @@ package com.capgemini.onlineStore.validator.impl;
 
 import com.capgemini.onlineStore.persistence.datatype.Status;
 import com.capgemini.onlineStore.to.CustomerTO;
+import com.capgemini.onlineStore.to.OrderProductTO;
+import com.capgemini.onlineStore.to.ProductTO;
 import com.capgemini.onlineStore.to.PurchaseTO;
 import com.capgemini.onlineStore.validator.Validator;
 import com.capgemini.onlineStore.validator.exception.InvalidPurchaseException;
@@ -33,8 +35,15 @@ public class CustomerValidator implements Validator {
 
     private boolean isTotalCostOfPurchaseSmallEnough(PurchaseTO purchase) {
         BigDecimal totalCost = purchase.getOrders().stream()
-                .map(o->o.getSellPrice())
+                .map(this::getSellPriceOfOrder)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         return totalCost.doubleValue() <= MAX_COST_OF_PURCHASE;
+    }
+
+    private BigDecimal getSellPriceOfOrder(OrderProductTO order) {
+        ProductTO product = order.getProduct();
+        BigDecimal unitPrice = product.getPrice();
+        BigDecimal grossMultiplier = BigDecimal.valueOf(100).add(product.getMarge()).multiply(BigDecimal.valueOf(0.01));
+        return unitPrice.multiply(grossMultiplier).multiply(BigDecimal.valueOf(order.getAmount()));
     }
 }

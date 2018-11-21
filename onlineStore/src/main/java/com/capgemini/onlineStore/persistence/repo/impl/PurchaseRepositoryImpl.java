@@ -79,26 +79,25 @@ public class PurchaseRepositoryImpl implements CustomizedPurchaseRepository {
                 .where(purchase.status.eq(status))
                 .fetchOne();
     }
-//
-//    @Override
-//    public BigDecimal gainForTimePeriod(LocalDate from, LocalDate to) {
-//
-//        QCustomerEntity customer = QCustomerEntity.customerEntity;
-//        QPurchaseEntity purchase = QPurchaseEntity.purchaseEntity;
-//        QOrderProductEntity order = QOrderProductEntity.orderProductEntity;
-//        QProductEntity product = QProductEntity.productEntity;
-//
-//        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-//
-//        return queryFactory
-//                .selectFrom(customer)
-//                .select(order.sellPrice.multiply(order.amount).subtract(order.product.price.multiply(order.amount)).sum())
-//                .join(customer.purchases, purchase)
-//                .join(purchase.orders, order)
-//                .join(order.product, product)
-////                .where
-//                .fetchOne();
-//    }
+
+    @Override
+    public BigDecimal gainForTimePeriod(LocalDate from, LocalDate to) {
+
+        QCustomerEntity customer = QCustomerEntity.customerEntity;
+        QPurchaseEntity purchase = QPurchaseEntity.purchaseEntity;
+        QOrderProductEntity order = QOrderProductEntity.orderProductEntity;
+        QProductEntity product = QProductEntity.productEntity;
+
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+
+        return queryFactory
+                .selectFrom(customer)
+                .select(order.sellPrice.multiply(order.amount).subtract(order.product.price.multiply(order.amount)).sum())
+                .join(customer.purchases, purchase)
+                .join(purchase.orders, order)
+                .join(order.product, product)
+                .fetchOne();
+    }
 
 
 }

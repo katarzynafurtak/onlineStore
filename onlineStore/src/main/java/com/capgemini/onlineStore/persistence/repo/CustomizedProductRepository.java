@@ -11,6 +11,4 @@ public interface CustomizedProductRepository {
     List<ProductEntity> findAll();
 
     List<ProductEntity> tenTopSelling();
-
-    //ProductEntity update(ProductEntity productEntity);
 }

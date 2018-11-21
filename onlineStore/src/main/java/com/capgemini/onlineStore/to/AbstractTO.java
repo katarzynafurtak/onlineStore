@@ -1,9 +1,16 @@
 package com.capgemini.onlineStore.to;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
+@MappedSuperclass
 public class AbstractTO {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int version;
     private LocalDateTime createDate;

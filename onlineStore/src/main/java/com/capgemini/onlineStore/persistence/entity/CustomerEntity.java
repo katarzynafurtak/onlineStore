@@ -23,7 +23,8 @@ public class CustomerEntity extends AbstractEntity {
     @Embedded
     private ContactData contactData;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn
     private Set<PurchaseEntity> purchases = new HashSet<>();
 
     public CustomerEntity() {
@@ -117,6 +118,14 @@ public class CustomerEntity extends AbstractEntity {
 
         public CustomerEntityBuilder withPurchases(Set<PurchaseEntity> purchasesToBeAdded) {
             this.purchases.addAll(purchasesToBeAdded);
+            return this;
+        }
+
+        public CustomerEntityBuilder withPurchase(PurchaseEntity purchase){
+            if (purchases == null) {
+                purchases = new HashSet<>();
+            }
+            purchases.add(purchase);
             return this;
         }
 
