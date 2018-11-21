@@ -4,6 +4,7 @@ import com.capgemini.onlineStore.persistence.embedded.ContactData;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -139,6 +140,14 @@ public class CustomerTO extends AbstractTO {
 
         public CustomerTOBuilder withPurchases(Set<PurchaseTO> purchasesToBeAdded) {
             this.purchases.addAll(purchasesToBeAdded);
+            return this;
+        }
+
+        public CustomerTOBuilder withPurchase(PurchaseTO purchaseTO) {
+            if (purchases == null) {
+                purchases = new HashSet<>();
+            }
+            purchases.add(purchaseTO);
             return this;
         }
 

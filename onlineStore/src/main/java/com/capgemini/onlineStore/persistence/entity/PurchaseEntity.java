@@ -5,7 +5,9 @@ import com.google.common.collect.Sets;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,12 +22,12 @@ public class PurchaseEntity extends AbstractEntity {
     private Status status;
 
     @OneToMany
-    private Set<OrderProductEntity> orders = new HashSet<>();
+    private List<OrderProductEntity> orders = new ArrayList<>();
 
     public PurchaseEntity() {
     }
 
-    public PurchaseEntity(Status status, Set<OrderProductEntity> orders, LocalDateTime date) {
+    public PurchaseEntity(Status status, List<OrderProductEntity> orders, LocalDateTime date) {
         this.status = status;
         this.orders = orders;
         this.date = date;
@@ -39,11 +41,11 @@ public class PurchaseEntity extends AbstractEntity {
         this.status = status;
     }
 
-    public Set<OrderProductEntity> getOrders() {
+    public List<OrderProductEntity> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<OrderProductEntity> orders) {
+    public void setOrders(List<OrderProductEntity> orders) {
         this.orders = orders;
     }
 
@@ -57,14 +59,12 @@ public class PurchaseEntity extends AbstractEntity {
 
     public static class PurchaseEntityBuilder {
         private Status status;
-        private Set<OrderProductEntity> orders;
+        private List<OrderProductEntity> orders;
         private LocalDateTime date;
 
-        public PurchaseEntityBuilder() {
-            orders = Sets.newHashSet();
-        }
+        public PurchaseEntityBuilder() { }
 
-        public PurchaseEntityBuilder(Status status, Set<OrderProductEntity> orders, LocalDateTime date) {
+        public PurchaseEntityBuilder(Status status, List<OrderProductEntity> orders, LocalDateTime date) {
             this.status = status;
             this.orders = orders;
             this.date = date;
@@ -75,7 +75,7 @@ public class PurchaseEntity extends AbstractEntity {
             return this;
         }
 
-        public PurchaseEntity.PurchaseEntityBuilder withOrders(Set<OrderProductEntity> ordersToBeAdded) {
+        public PurchaseEntity.PurchaseEntityBuilder withOrders(List<OrderProductEntity> ordersToBeAdded) {
             this.orders.addAll(ordersToBeAdded);
             return this;
         }

@@ -61,6 +61,32 @@ public class ProductTO extends AbstractTO {
         this.weight = weight;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductTO productTO = (ProductTO) o;
+        return Objects.equals(name, productTO.name) &&
+                Objects.equals(marge, productTO.marge) &&
+                Objects.equals(price, productTO.price) &&
+                Objects.equals(weight, productTO.weight);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, marge, price, weight);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductTO{" +
+                "name='" + name + '\'' +
+                ", marge=" + marge +
+                ", price=" + price +
+                ", weight=" + weight +
+                '}';
+    }
+
     public static class ProductTOBuilder {
         private String name;
         private BigDecimal marge;
@@ -100,31 +126,5 @@ public class ProductTO extends AbstractTO {
         public ProductTO build() {
             return new ProductTO(name, marge, price, weight);
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductTO productTO = (ProductTO) o;
-        return Objects.equals(name, productTO.name) &&
-                Objects.equals(marge, productTO.marge) &&
-                Objects.equals(price, productTO.price) &&
-                Objects.equals(weight, productTO.weight);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, marge, price, weight);
-    }
-
-    @Override
-    public String toString() {
-        return "ProductTO{" +
-                "name='" + name + '\'' +
-                ", marge=" + marge +
-                ", price=" + price +
-                ", weight=" + weight +
-                '}';
     }
 }

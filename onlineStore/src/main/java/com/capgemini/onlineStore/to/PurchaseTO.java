@@ -4,6 +4,8 @@ import com.capgemini.onlineStore.persistence.datatype.Status;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,12 +18,12 @@ public class PurchaseTO extends AbstractTO {
     private Status status;
 
     @NotNull
-    private Set<OrderProductTO> orders;
+    private List<OrderProductTO> orders;
 
     public PurchaseTO() {
     }
 
-    public PurchaseTO(Status status, Set<OrderProductTO> orders, LocalDateTime date) {
+    public PurchaseTO(Status status, List<OrderProductTO> orders, LocalDateTime date) {
         this.status = status;
         this.orders = orders;
         this.date = date;
@@ -35,11 +37,11 @@ public class PurchaseTO extends AbstractTO {
         this.status = status;
     }
 
-    public Set<OrderProductTO> getOrders() {
+    public List<OrderProductTO> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<OrderProductTO> orders) {
+    public void setOrders(List<OrderProductTO> orders) {
         this.orders = orders;
     }
 
@@ -49,40 +51,6 @@ public class PurchaseTO extends AbstractTO {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public static class PurchaseTOBuilder {
-        private Status status;
-        private Set<OrderProductTO> orders;
-        private LocalDateTime date;
-
-        public PurchaseTOBuilder() {
-        }
-
-        public PurchaseTOBuilder(Status status, Set<OrderProductTO> orders, LocalDateTime date) {
-            this.status = status;
-            this.orders = orders;
-            this.date = date;
-        }
-
-        public PurchaseTOBuilder withStatus(Status status) {
-            this.status = status;
-            return this;
-        }
-
-        public PurchaseTOBuilder withOrders(Set<OrderProductTO> ordersToBeAdded) {
-            this.orders.addAll(ordersToBeAdded);
-            return this;
-        }
-
-        public PurchaseTOBuilder withDate(LocalDateTime date) {
-            this.date = date;
-            return this;
-        }
-
-        public PurchaseTO build() {
-            return new PurchaseTO(status, orders, date);
-        }
     }
 
     @Override
@@ -106,4 +74,48 @@ public class PurchaseTO extends AbstractTO {
                 ", orders=" + orders +
                 '}';
     }
+
+    public static class PurchaseTOBuilder {
+        private Status status;
+        private List<OrderProductTO> orders;
+        private LocalDateTime date;
+
+        public PurchaseTOBuilder() {
+        }
+
+        public PurchaseTOBuilder(Status status, List<OrderProductTO> orders, LocalDateTime date) {
+            this.status = status;
+            this.orders = orders;
+            this.date = date;
+        }
+
+        public PurchaseTOBuilder withStatus(Status status) {
+            this.status = status;
+            return this;
+        }
+
+        public PurchaseTOBuilder withOrders(List<OrderProductTO> ordersToBeAdded) {
+            this.orders = ordersToBeAdded;
+            return this;
+        }
+
+        public PurchaseTOBuilder withOrder(OrderProductTO order) {
+            if (orders == null) {
+                orders = new ArrayList<>();
+            }
+            orders.add(order);
+            return this;
+        }
+
+        public PurchaseTOBuilder withDate(LocalDateTime date) {
+            this.date = date;
+            return this;
+        }
+
+        public PurchaseTO build() {
+            return new PurchaseTO(status, orders, date);
+        }
+    }
 }
+
+
