@@ -1,6 +1,5 @@
 package com.capgemini.onlineStore.validator.impl;
 
-import com.capgemini.onlineStore.to.CustomerTO;
 import com.capgemini.onlineStore.to.OrderProductTO;
 import com.capgemini.onlineStore.to.ProductTO;
 import com.capgemini.onlineStore.to.PurchaseTO;

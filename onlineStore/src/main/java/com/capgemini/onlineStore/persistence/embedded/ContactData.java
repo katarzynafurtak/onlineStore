@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ContactData {
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 40, nullable = false)
     private String city;
 
     @Column(length = 50)
