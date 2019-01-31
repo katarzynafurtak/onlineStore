@@ -30,3 +30,4 @@ public class CustomerRepositoryImpl implements CustomizedCustomerRepository {
                 .fetchCount();
     }
 }
+//dla jednego brancza
