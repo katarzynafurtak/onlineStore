@@ -31,3 +31,5 @@ public class CustomerRepositoryImpl implements CustomizedCustomerRepository {
     }
 }
 //dla jednego brancza
+//nie udało się :(
+//próbujemy jeszcze raz
